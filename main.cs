@@ -7,7 +7,7 @@ class Program {
 		const int playerPosX = rows/2;
 		const int playerPosY = cols/2;
 		const char gridChar = '.';
-		const char playerChar = '@';
+		const char playerChar = 'P';
 
 		char[,] grid = new char[rows, cols];
 
@@ -20,6 +20,8 @@ class Program {
 
 		printRoom(grid);
 	}
+
+
 
 	static void printRoom(char[,] grid) {
 		int rows = grid.GetLength(0);
