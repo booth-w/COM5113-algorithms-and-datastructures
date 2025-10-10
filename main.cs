@@ -2,61 +2,71 @@ using System;
 using System.Linq;
 
 class Program {
-	static char[,] grid;
 	static bool gameOver;
-	static char playerChar;
-	static char gridChar;
+
+	struct Grid {
+		public char[,] grid;
+		public int rows;
+		public int cols;
+		public char gridChar;
+	}
+
+	struct Player {
+		public int x;
+		public int y;
+		public char playerChar;
+	}
 
 	static void Main(string[] args) {
-		Init();
+		(Grid grid, Player player) = Init();
 
 		while (!gameOver) {
-			GameLoop();
+			GameLoop(grid, player);
 		}
 
 		// exit with a new line
 		Console.WriteLine();
 	}
 
-	static void Init() {
-		const int rows = 15;
-		const int cols = 15;
-		gridChar = '.';
+	static (Grid, Player) Init() {
+		Grid grid = new Grid();
+		grid.rows = 15;
+		grid.cols = 15;
+		grid.grid = new char[grid.rows, grid.cols];
+		grid.gridChar = '.';
 
-		// centre player
-		const int playerPosX = rows/2;
-		const int playerPosY = cols/2;
-		playerChar = 'P';
+		Player player = new Player();
+		player.x = grid.rows / 2;
+		player.y = grid.cols / 2;
+		player.playerChar = 'P';
 
 		gameOver = false;
 
-		grid = new char[rows, cols];
 
 		// fill grid with gridChar
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < cols; col++) {
-				grid[row, col] = gridChar;
+		for (int row = 0; row < grid.rows; row++) {
+			for (int col = 0; col < grid.cols; col++) {
+				grid.grid[row, col] = grid.gridChar;
 			}
 		}
-		grid[playerPosX, playerPosY] = playerChar;
+		grid.grid[player.x, player.y] = player.playerChar;
+
+		return (grid, player);
 	}
 
-	static void GameLoop() {
+	static void GameLoop(Grid grid, Player player) {
 		Console.Clear();
-		PrintRoom();
-		char input = GetUserKey("Quit: q\n", new char[] {'q'});
-		if (input == 'q') {
-			gameOver = true;
-		}
+		PrintRoom(grid);
+		MovePlayer(grid, player);
 	}
 
-	static void PrintRoom() {
-		int rows = grid.GetLength(0);
-		int cols = grid.GetLength(1);
+	static void PrintRoom(Grid grid) {
+		int rows = grid.grid.GetLength(0);
+		int cols = grid.grid.GetLength(1);
 
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
-				Console.Write(grid[row, col]);
+				Console.Write(grid.grid[row, col]);
 			}
 			Console.WriteLine();
 		}
