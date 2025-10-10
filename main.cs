@@ -21,7 +21,7 @@ class Program {
 		(Grid grid, Player player) = Init();
 
 		while (!gameOver) {
-			GameLoop(grid, player);
+			(grid, player) = GameLoop(grid, player);
 		}
 
 		// exit with a new line
@@ -54,10 +54,11 @@ class Program {
 		return (grid, player);
 	}
 
-	static void GameLoop(Grid grid, Player player) {
+	static (Grid, Player) GameLoop(Grid grid, Player player) {
 		Console.Clear();
 		PrintRoom(grid);
-		MovePlayer(grid, player);
+		(grid, player) = MovePlayer(grid, player);
+		return (grid, player);
 	}
 
 	static void PrintRoom(Grid grid) {
@@ -88,5 +89,39 @@ class Program {
 			Console.WriteLine("\n\nInvalid input");
 			return GetUserKey(prompt, validKeys);
 		}
+	}
+
+	static (Grid, Player) MovePlayer(Grid grid, Player player) {
+		char input = GetUserKey("Move: wasd\nQuit: q\n", new char[] {'w', 'a', 's', 'd', 'q'});
+		int newX = player.x;
+		int newY = player.y;
+
+		switch (input) {
+			case 'q':
+				gameOver = true;
+				break;
+			case 'w':
+				newY--;
+				break;
+			case 'a':
+				newX--;
+				break;
+			case 's':
+				newY++;
+				break;
+			case 'd':
+				newX++;
+				break;
+		}
+
+		if (newX >= 0 && newX < grid.rows && newY >= 0 && newY < grid.cols) {
+			// move player
+			grid.grid[player.y, player.x] = grid.gridChar;
+			player.x = newX;
+			player.y = newY;
+			grid.grid[player.y, player.x] = player.playerChar;
+		}
+
+		return (grid, player);
 	}
 }
