@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-csc -nowarn:8632 *.cs
+csc -define:DEBUG -nowarn:8632 *.cs
 if [[ $? -ne 0 ]]; then
 	exit 1
 fi

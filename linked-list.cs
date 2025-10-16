@@ -44,13 +44,18 @@ public class LinkedList {
 		return false;
 	}
 
-	public void printList() {
+	public string printList() {
 		Element? current = _head;
 
+		string toPrint = "";
 		while (current != null) {
-			Console.Write(current.Data + ", ");
+			toPrint += current.Data + ", ";
 			current = current.Next;
 		}
-		Console.WriteLine("\b\b ");
+
+		// remove last ", "
+		toPrint = toPrint[..^2];
+
+		return toPrint;
 	}
 }
