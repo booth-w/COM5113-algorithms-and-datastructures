@@ -7,7 +7,7 @@ public class LinkedList {
 		_head = null;
 	}
 
-	public int count() {
+	public int Count() {
 		int count = 0;
 		Element? current = _head;
 
@@ -19,20 +19,20 @@ public class LinkedList {
 		return count;
 	}
 
-	public void pushFront(int data) {
+	public void PushFront(int data) {
 		Element newElement = new Element(data);
 		newElement.Next = _head;
 		_head = newElement;
 	}
 
-	public void popFront() {
+	public void PopFront() {
 		Element? oldHead = _head;
 		if (oldHead != null) {
 			_head = oldHead.Next;
 		}
 	}
 
-	public bool getFront(ref int data) {
+	public bool GetFront(ref int data) {
 		bool listNotEmpty = _head != null;
 		if (listNotEmpty) {
 			data = _head.Data;
@@ -43,7 +43,7 @@ public class LinkedList {
 		return listNotEmpty;
 	}
 
-	public bool contains(int data) {
+	public bool Contains(int data) {
 		Element? current = _head;
 
 		while (current != null) {
@@ -56,7 +56,7 @@ public class LinkedList {
 		return false;
 	}
 
-	public string printList() {
+	public string PrintList() {
 		Element? current = _head;
 
 		string toPrint = "";

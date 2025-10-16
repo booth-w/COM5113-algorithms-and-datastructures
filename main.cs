@@ -9,6 +9,6 @@ class Program {
 
 		test.PushFront();
 		test.PopFront();
-		test.count();
+		test.Count();
 	}
 }
