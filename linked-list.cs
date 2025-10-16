@@ -7,6 +7,18 @@ public class LinkedList {
 		_head = null;
 	}
 
+	public int count() {
+		int count = 0;
+		Element? current = _head;
+
+		while (current != null) {
+			count++;
+			current = current.Next;
+		}
+
+		return count;
+	}
+
 	public void pushFront(int data) {
 		Element newElement = new Element(data);
 		newElement.Next = _head;
