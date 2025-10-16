@@ -66,7 +66,9 @@ public class LinkedList {
 		}
 
 		// remove last ", "
-		toPrint = toPrint[..^2];
+		if (toPrint.Length >= 2) {
+			toPrint = toPrint[..^2];
+		}
 
 		return toPrint;
 	}
