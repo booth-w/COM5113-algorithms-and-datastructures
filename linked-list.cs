@@ -43,6 +43,26 @@ public class LinkedList {
 		return listNotEmpty;
 	}
 
+	public void RemoveFirst(int data) {
+		if (_head == null) {
+			return;
+		}
+
+		if (_head.Data == data) {
+			_head = _head.Next;
+			return;
+		}
+
+		Element? current = _head;
+		while (current.Next != null) {
+			if (current.Next.Data == data) {
+				current.Next = current.Next.Next;
+				return;
+			}
+			current = current.Next;
+		}
+	}
+
 	public bool Contains(int data) {
 		Element? current = _head;
 

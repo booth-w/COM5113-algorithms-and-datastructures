@@ -49,16 +49,58 @@ class Test {
 		LinkedList list = new LinkedList();
 		int output;
 
+		Console.WriteLine("count empty");
 		output = list.Count();
 		Debug.Assert(output == 0, $"count 0. found: {output}, expected: 0");
 
+		Console.WriteLine("count 1");
 		list.PushFront(1);
 		output = list.Count();
 		Debug.Assert(output == 1, $"count 1. found: {output}, expected: 1");
 
+		Console.WriteLine("count 3");
 		list.PushFront(2);
 		list.PushFront(3);
 		output = list.Count();
 		Debug.Assert(output == 3, $"count 3. found: {output}, expected: 3");
+	}
+
+	public void RemoveFirst() {
+		LinkedList list = new LinkedList();
+		string output;
+
+		Console.WriteLine("remove first empty");
+		list.RemoveFirst(1);
+		output = list.PrintList();
+		Debug.Assert(output == "", $"remove empty. found: {output}, expected: empty string");
+
+		Console.WriteLine("remove first does not exist");
+		list.PushFront(1);
+		list.PushFront(2);
+		list.PushFront(3);
+		list.PushFront(4);
+		list.RemoveFirst(5);
+		output = list.PrintList();
+		Debug.Assert(output == "4, 3, 2, 1", $"remove first does not exist. found: {output}, expected: 4, 3, 2, 1");
+
+		Console.WriteLine("remove first middle");
+		list.RemoveFirst(2);
+		output = list.PrintList();
+		Debug.Assert(output == "4, 3, 1", $"remove first middle. found: {output}, expected: 4, 3, 1");
+
+		Console.WriteLine("remove first head");
+		list.RemoveFirst(4);
+		output = list.PrintList();
+		Debug.Assert(output == "3, 1", $"remove first head. found: {output}, expected: 3, 1");
+
+		Console.WriteLine("remove first tail");
+		list.RemoveFirst(1);
+		output = list.PrintList();
+		Debug.Assert(output == "3", $"remove first tail. found: {output}, expected: 3");
+
+		Console.WriteLine("remove first last");
+		list.RemoveFirst(3);
+		output = list.PrintList();
+		Debug.Assert(output == "", $"remove first last. found: {output}, expected: empty string");
 	}
 }

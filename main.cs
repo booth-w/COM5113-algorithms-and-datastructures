@@ -10,5 +10,6 @@ class Program {
 		test.PushFront();
 		test.PopFront();
 		test.Count();
+		test.RemoveFirst();
 	}
 }
