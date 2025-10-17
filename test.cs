@@ -7,7 +7,7 @@ class Test {
 	}
 
 	public void PushFront() {
-		LinkedList list = new LinkedList();
+		LinkedList<int> list = new LinkedList<int>();
 		string output;
 
 		Debug.WriteLine("push front to empty");
@@ -22,7 +22,7 @@ class Test {
 	}
 
 	public void PopFront() {
-		LinkedList list = new LinkedList();
+		LinkedList<int> list = new LinkedList<int>();
 		string output;
 
 		Debug.WriteLine("pop front from empty");
@@ -46,7 +46,7 @@ class Test {
 	}
 
 	public void PushSorted() {
-		LinkedList list = new LinkedList();
+		LinkedList<int> list = new LinkedList<int>();
 		string output;
 
 		Debug.WriteLine("push sorted to empty");
@@ -71,7 +71,7 @@ class Test {
 	}
 
 	public void Count() {
-		LinkedList list = new LinkedList();
+		LinkedList<int> list = new LinkedList<int>();
 		int output;
 
 		Debug.WriteLine("count empty");
@@ -91,7 +91,7 @@ class Test {
 	}
 
 	public void RemoveFirst() {
-		LinkedList list = new LinkedList();
+		LinkedList<int> list = new LinkedList<int>();
 		string output;
 
 		Debug.WriteLine("remove first empty");

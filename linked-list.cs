@@ -1,7 +1,7 @@
 using System;
 
-public class LinkedList {
-	private Element? _head;
+public class LinkedList<T> where T : IComparable<T> {
+	private Element<T>? _head;
 
 	public LinkedList() {
 		_head = null;
@@ -9,7 +9,7 @@ public class LinkedList {
 
 	public int Count() {
 		int count = 0;
-		Element? current = _head;
+		Element<T>? current = _head;
 
 		while (current != null) {
 			count++;
@@ -19,37 +19,37 @@ public class LinkedList {
 		return count;
 	}
 
-	public void PushFront(int data) {
-		Element newElement = new Element(data);
+	public void PushFront(T data) {
+		Element<T> newElement = new Element<T>(data);
 		newElement.Next = _head;
 		_head = newElement;
 	}
 
 	public void PopFront() {
-		Element? oldHead = _head;
+		Element<T>? oldHead = _head;
 		if (oldHead != null) {
 			_head = oldHead.Next;
 		}
 	}
 
-	public void PushSorted(int data) {
-		Element newElement = new Element(data);
+	public void PushSorted(T data) {
+		Element<T> newElement = new Element<T>(data);
 
-		if (_head == null || _head.Data >= data) {
+		if (_head == null || _head.Data.CompareTo(data) >= 0) {
 			newElement.Next = _head;
 			_head = newElement;
 			return;
 		}
 
-		Element? current = _head;
-		while (current.Next != null && current.Next.Data < data) {
+		Element<T>? current = _head;
+		while (current.Next != null && current.Next.Data.CompareTo(data) < 0) {
 			current = current.Next;
 		}
 		newElement.Next = current.Next;
 		current.Next = newElement;
 	}
 
-	public bool GetFront(ref int data) {
+	public bool GetFront(ref T data) {
 		bool listNotEmpty = _head != null;
 		if (listNotEmpty) {
 			data = _head.Data;
@@ -60,19 +60,19 @@ public class LinkedList {
 		return listNotEmpty;
 	}
 
-	public void RemoveFirst(int data) {
+	public void RemoveFirst(T data) {
 		if (_head == null) {
 			return;
 		}
 
-		if (_head.Data == data) {
+		if (_head.Data.Equals(data)) {
 			_head = _head.Next;
 			return;
 		}
 
-		Element? current = _head;
+		Element<T>? current = _head;
 		while (current.Next != null) {
-			if (current.Next.Data == data) {
+			if (current.Next.Data.Equals(data)) {
 				current.Next = current.Next.Next;
 				return;
 			}
@@ -80,11 +80,11 @@ public class LinkedList {
 		}
 	}
 
-	public bool Contains(int data) {
-		Element? current = _head;
+	public bool Contains(T data) {
+		Element<T>? current = _head;
 
 		while (current != null) {
-			if (current.Data == data) {
+			if (current.Data.Equals(data)) {
 				return true;
 			}
 			current = current.Next;
@@ -93,20 +93,20 @@ public class LinkedList {
 		return false;
 	}
 
-	public void Copy(Element? newList) {
+	public void Copy(Element<T>? newList) {
 		// assume newList is empty
 		if (_head == null) {
 			return;
 		}
 
-		Element? current = _head;
+		Element<T>? current = _head;
 		while (current != null) {
-		
+
 		}
 	}
 
 	public string PrintList() {
-		Element? current = _head;
+		Element<T>? current = _head;
 
 		string toPrint = "";
 		while (current != null) {

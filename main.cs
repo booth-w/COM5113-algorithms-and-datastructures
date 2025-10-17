@@ -2,7 +2,7 @@ using System;
 
 class Program {
 	static void Main(string[] args) {
-		LinkedList list = new LinkedList();
+		LinkedList<int> list = new LinkedList<int>();
 
 		Test test = new Test();
 		test.Init();
