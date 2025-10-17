@@ -11,5 +11,6 @@ class Program {
 		test.PopFront();
 		test.Count();
 		test.RemoveFirst();
+		test.PushSorted();
 	}
 }

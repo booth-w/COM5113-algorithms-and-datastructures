@@ -32,6 +32,23 @@ public class LinkedList {
 		}
 	}
 
+	public void PushSorted(int data) {
+		Element newElement = new Element(data);
+
+		if (_head == null || _head.Data >= data) {
+			newElement.Next = _head;
+			_head = newElement;
+			return;
+		}
+
+		Element? current = _head;
+		while (current.Next != null && current.Next.Data < data) {
+			current = current.Next;
+		}
+		newElement.Next = current.Next;
+		current.Next = newElement;
+	}
+
 	public bool GetFront(ref int data) {
 		bool listNotEmpty = _head != null;
 		if (listNotEmpty) {
@@ -74,6 +91,18 @@ public class LinkedList {
 		}
 
 		return false;
+	}
+
+	public void Copy(Element? newList) {
+		// assume newList is empty
+		if (_head == null) {
+			return;
+		}
+
+		Element? current = _head;
+		while (current != null) {
+		
+		}
 	}
 
 	public string PrintList() {
