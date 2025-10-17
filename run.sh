@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
 
-csc -define:DEBUG -nowarn:8632 *.cs
+if [[ $1 == "--debug" ]]; then
+	shift
+	csc -define:DEBUG -nowarn:8632 *.cs
+else
+	csc -nowarn:8632 *.cs
+fi
+
 if [[ $? -ne 0 ]]; then
 	exit 1
 fi
