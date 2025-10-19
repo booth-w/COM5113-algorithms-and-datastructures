@@ -1,6 +1,6 @@
 using System;
 
-public class LinkedList<T> where T : IComparable<T> {
+public class LinkedList<T> {// where T : IComparable<T> {
 	private Element<T>? _head;
 
 	public LinkedList() {
@@ -32,22 +32,22 @@ public class LinkedList<T> where T : IComparable<T> {
 		}
 	}
 
-	public void PushSorted(T data) {
-		Element<T> newElement = new Element<T>(data);
-
-		if (_head == null || _head.Data.CompareTo(data) >= 0) {
-			newElement.Next = _head;
-			_head = newElement;
-			return;
-		}
-
-		Element<T>? current = _head;
-		while (current.Next != null && current.Next.Data.CompareTo(data) < 0) {
-			current = current.Next;
-		}
-		newElement.Next = current.Next;
-		current.Next = newElement;
-	}
+	// public void PushSorted(T data) {
+	// 	Element<T> newElement = new Element<T>(data);
+	//
+	// 	if (_head == null || _head.Data.CompareTo(data) >= 0) {
+	// 		newElement.Next = _head;
+	// 		_head = newElement;
+	// 		return;
+	// 	}
+	//
+	// 	Element<T>? current = _head;
+	// 	while (current.Next != null && current.Next.Data.CompareTo(data) < 0) {
+	// 		current = current.Next;
+	// 	}
+	// 	newElement.Next = current.Next;
+	// 	current.Next = newElement;
+	// }
 
 	public bool GetFront(ref T data) {
 		bool listNotEmpty = _head != null;
@@ -94,7 +94,7 @@ public class LinkedList<T> where T : IComparable<T> {
 	}
 
 	public void Copy(Element<T>? newList) {
-		// assume newList is empty
+		// TODO
 		if (_head == null) {
 			return;
 		}

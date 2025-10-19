@@ -2,8 +2,15 @@ using System;
 
 class Program {
 	static void Main(string[] args) {
-		LinkedList<int> list = new LinkedList<int>();
+		#if DEBUG
+			Test();
+		#endif
 
+		FCC game = new FCC();
+		game.GameLoop();
+	}
+
+	static void Test() {
 		Test test = new Test();
 		test.Init();
 
@@ -11,6 +18,6 @@ class Program {
 		test.PopFront();
 		test.Count();
 		test.RemoveFirst();
-		test.PushSorted();
+		// test.PushSorted();
 	}
 }
