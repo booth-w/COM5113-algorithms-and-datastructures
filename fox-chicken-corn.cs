@@ -43,9 +43,11 @@ public class FCC {
 	}
 
 	public void DisplayBanks() {
-		Console.WriteLine($"North Bank: {_northItems.PrintList()}");
-		Console.WriteLine($"South Bank: {_southItems.PrintList()}");
-		Console.WriteLine($"Farmer: {_farmerPos}");
+		const int padding = 14;
+		Console.WriteLine($"{"North Bank: ", padding}{_northItems.PrintList()}");
+		Console.WriteLine($"{"South Bank: ", padding}{_southItems.PrintList()}");
+		Console.WriteLine($"{"Farmer: ", padding}{_farmerPos}");
+		Console.WriteLine($"{"Item on Boat: ", padding}{_itemOnBoat}\n");
 	}
 
 	private void MoveItem(Item? item) {
