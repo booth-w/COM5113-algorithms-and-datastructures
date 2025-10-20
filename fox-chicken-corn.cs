@@ -43,11 +43,10 @@ public class FCC {
 	}
 
 	public void DisplayBanks() {
-		const int padding = 14;
+		const int padding = 12;
 		Console.WriteLine($"{"North Bank: ", padding}{_northItems.PrintList()}");
 		Console.WriteLine($"{"South Bank: ", padding}{_southItems.PrintList()}");
-		Console.WriteLine($"{"Farmer: ", padding}{_farmerPos}");
-		Console.WriteLine($"{"Item on Boat: ", padding}{_itemOnBoat}\n");
+		Console.WriteLine($"{"Farmer: ", padding}{_farmerPos}\n");
 	}
 
 	private void MoveItem(Item? item) {
@@ -76,6 +75,21 @@ public class FCC {
 	}
 
 	public bool isLost() {
+		LinkedList<Item> bank = _farmerPos == Bank.North ? _southItems : _northItems;
+		bool hasFox = bank.Contains(Item.Fox);
+		bool hasChicken = bank.Contains(Item.Chicken);
+		bool hasCorn = bank.Contains(Item.Corn);
+
+		if (hasFox && hasChicken) {
+			Console.WriteLine("\bThe fox has eaten the chicken\n(Any key to try again)");
+			Console.ReadKey();
+			return true;
+		}
+		if (hasChicken && hasCorn) {
+			Console.WriteLine("\bThe chicken has eaten the corn\n(Any key to try again)");
+			Console.ReadKey();
+			return true;
+		}
 		return false;
 	}
 
