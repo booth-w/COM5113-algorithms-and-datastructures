@@ -30,6 +30,8 @@ public class FCC {
 			DisplayInstructions();
 			DisplayBanks();
 			char choice = GetUserKey("Choose an item to take:\nf: fox\nc: chicken\no: corn\nn: nothing\n", new char[] { 'f', 'c', 'o', 'n' });
+			Item? itemToMove = ChoiceToItem(choice);
+			MoveItem(itemToMove);
 		}
 	}
 
@@ -46,13 +48,29 @@ public class FCC {
 		Console.WriteLine($"Farmer: {_farmerPos}");
 	}
 
+	private void MoveItem(Item? item) {
+		if (_farmerPos == Bank.North) {
+			if (item.HasValue && _northItems.Contains(item.Value)) {
+				_northItems.RemoveFirst(item.Value);
+				_southItems.PushFront(item.Value);
+			}
+			_farmerPos = Bank.South;
+		} else {
+			if (item.HasValue && _southItems.Contains(item.Value)) {
+				_southItems.RemoveFirst(item.Value);
+				_northItems.PushFront(item.Value);
+			}
+			_farmerPos = Bank.North;
+		}
+	}
+
 	public bool isWon() {
 		foreach (Item item in Enum.GetValues(typeof(Item))) {
 			if (!_southItems.Contains(item)) {
 				return false;
 			}
 		}
-		return true;
+		return _farmerPos == Bank.South;
 	}
 
 	public bool isLost() {
@@ -75,5 +93,15 @@ public class FCC {
 			Console.WriteLine("\n\nInvalid input");
 			return GetUserKey(prompt, validKeys);
 		}
+	}
+
+	private Item? ChoiceToItem(char choice) {
+		return choice switch {
+			'f' => Item.Fox,
+			'c' => Item.Chicken,
+			'o' => Item.Corn,
+			'n' => null,
+			_ => null
+		};
 	}
 }
