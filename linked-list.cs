@@ -19,10 +19,27 @@ public class LinkedList<T> {// where T : IComparable<T> {
 		return count;
 	}
 
-	public void PushFront(T data) {
+	public void PushFront(T data, bool toBack = false) {
 		Element<T> newElement = new Element<T>(data);
-		newElement.Next = _head;
-		_head = newElement;
+
+		if (!toBack) {
+			newElement.Next = _head;
+			_head = newElement;
+		} else {
+			if (_head == null) {
+				_head = newElement;
+			} else {
+				Element<T>? current = _head;
+				while (current.Next != null) {
+					current = current.Next;
+				}
+				current.Next = newElement;
+			}
+		}
+	}
+
+	public void PushBack(T data) {
+		PushFront(data, true);
 	}
 
 	public void PopFront() {
