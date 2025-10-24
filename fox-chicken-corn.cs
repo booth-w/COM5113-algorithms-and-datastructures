@@ -81,16 +81,19 @@ public class FCC {
 		bool hasCorn = bank.Contains(Item.Corn);
 
 		if (hasFox && hasChicken) {
-			Console.WriteLine("\bThe fox has eaten the chicken\n(Any key to try again)");
-			Console.ReadKey();
+			Console.WriteLine("\bThe fox has eaten the chicken");
 			return true;
 		}
 		if (hasChicken && hasCorn) {
-			Console.WriteLine("\bThe chicken has eaten the corn\n(Any key to try again)");
-			Console.ReadKey();
+			Console.WriteLine("\bThe chicken has eaten the corn");
 			return true;
 		}
 		return false;
+	}
+
+	public bool PlayAgain() {
+		char choice = GetUserKey("Play again? (y/n)\n", new char[] { 'y', 'n' });
+		return choice == 'y';
 	}
 
 	private char GetUserKey(string prompt, char[] validKeys) {
@@ -101,6 +104,7 @@ public class FCC {
 		Console.SetCursorPosition(1, Console.CursorTop);
 
 		char input = Console.ReadKey(true).KeyChar;
+		Console.SetCursorPosition(0, Console.CursorTop);
 
 		// validate input
 		if (validKeys.Contains(input)) {

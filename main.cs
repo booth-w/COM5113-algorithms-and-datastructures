@@ -6,8 +6,14 @@ class Program {
 			Test();
 		#endif
 
-		FCC game = new FCC();
-		game.GameLoop();
+		bool isPlaying = true;
+		while (isPlaying) {
+			FCC game = new FCC();
+			game.GameLoop();
+			isPlaying = game.PlayAgain();
+		}
+
+		Console.WriteLine();
 	}
 
 	static void Test() {
