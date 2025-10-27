@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-class Program {
+public static class Program {
 	static bool gameOver;
 
 	struct Grid {
@@ -17,7 +17,7 @@ class Program {
 		public char playerChar;
 	}
 
-	static void Main(string[] args) {
+	public static void Run(string[] args) {
 		(Grid grid, Player player) = Init();
 
 		while (!gameOver) {
