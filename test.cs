@@ -21,6 +21,21 @@ class Test {
 		Debug.Assert(output == "2, 1", $"push front to non-empty. found: {output}, expected: 2, 1");
 	}
 
+	public void PushBack() {
+		LinkedList<int> list = new LinkedList<int>();
+		string output;
+
+		Debug.WriteLine("push back to empty");
+		list.PushBack(1);
+		output = list.PrintList();
+		Debug.Assert(output == "1", $"push back to empty. found: {output}, expected: 1");
+
+		Debug.WriteLine("push back to non-empty");
+		list.PushBack(2);
+		output = list.PrintList();
+		Debug.Assert(output == "1, 2", $"push back to non-empty. found: {output}, expected: 1, 2");
+	}
+
 	public void PopFront() {
 		LinkedList<int> list = new LinkedList<int>();
 		string output;

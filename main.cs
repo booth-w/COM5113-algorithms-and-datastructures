@@ -5,15 +5,6 @@ class Program {
 		#if DEBUG
 			Test();
 		#endif
-
-		bool isPlaying = true;
-		while (isPlaying) {
-			FCC game = new FCC();
-			game.GameLoop();
-			isPlaying = game.PlayAgain();
-		}
-
-		Console.WriteLine();
 	}
 
 	static void Test() {
@@ -21,9 +12,9 @@ class Program {
 		test.Init();
 
 		test.PushFront();
+		test.PushBack();
 		test.PopFront();
 		test.Count();
 		test.RemoveFirst();
-		// test.PushSorted();
 	}
 }
