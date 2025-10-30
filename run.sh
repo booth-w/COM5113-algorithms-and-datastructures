@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
 
+shopt -s globstar
+
 if [[ $1 == "--debug" ]]; then
 	shift
-	csc -define:DEBUG -nowarn:8632 *.cs
+	csc -define:DEBUG -nowarn:8632 **/*.cs
 else
-	csc -nowarn:8632 *.cs
+	csc -nowarn:8632 **/*.cs
 fi
 
 if [[ $? -ne 0 ]]; then

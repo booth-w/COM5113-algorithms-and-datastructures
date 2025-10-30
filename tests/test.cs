@@ -60,31 +60,6 @@ class Test {
 		Debug.Assert(output == "", $"pop front last. found: {output}, expected: empty string");
 	}
 
-	// public void PushSorted() {
-	// 	LinkedList<int> list = new LinkedList<int>();
-	// 	string output;
-	//
-	// 	Debug.WriteLine("push sorted to empty");
-	// 	list.PushSorted(2);
-	// 	output = list.PrintList();
-	// 	Debug.Assert(output == "2", $"push sorted to empty. found: {output}, expected: 2");
-	//
-	// 	Debug.WriteLine("push sorted to front");
-	// 	list.PushSorted(1);
-	// 	output = list.PrintList();
-	// 	Debug.Assert(output == "1, 2", $"push sorted to front. found: {output}, expected: 1, 2");
-	//
-	// 	Debug.WriteLine("push sorted to back");
-	// 	list.PushSorted(4);
-	// 	output = list.PrintList();
-	// 	Debug.Assert(output == "1, 2, 4", $"push sorted to back. found: {output}, expected: 1, 2, 4");
-	//
-	// 	Debug.WriteLine("push sorted to middle");
-	// 	list.PushSorted(3);
-	// 	output = list.PrintList();
-	// 	Debug.Assert(output == "1, 2, 3, 4", $"push sorted to middle. found: {output}, expected: 1, 2, 3, 4");
-	// }
-
 	public void Count() {
 		LinkedList<int> list = new LinkedList<int>();
 		int output;
