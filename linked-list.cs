@@ -7,6 +7,10 @@ public class LinkedList<T> where T : IComparable<T> {
 		_head = null;
 	}
 
+	public void Clear() {
+		_head = null;
+	}
+
 	public int Count() {
 		int count = 0;
 		Element<T>? current = _head;
