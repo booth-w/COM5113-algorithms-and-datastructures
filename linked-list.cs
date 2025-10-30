@@ -1,6 +1,6 @@
 using System;
 
-public class LinkedList<T> {
+public class LinkedList<T> where T : IComparable<T> {
 	private Element<T>? _head;
 
 	public LinkedList() {
@@ -122,15 +122,23 @@ public class LinkedList<T> {
 		return toPrint;
 	}
 
-	private Element RoutineA(int val, Element list) {
+	public void PushSorted(T val) {
+		_head = PushSortedPriv(val, _head);
+	}
+
+	// insert to sorted list
+	private Element<T> PushSortedPriv(T val, Element<T> list) {
 		if (list == null) {
-			return new Element(val);
-		} else if (list.Data >= val) {
-			Element newElem = new Element(val);
+			// if the list is empty, create a new element
+			return new Element<T>(val);
+		} else if (list.Data.CompareTo(val) >= 0) {
+			// if passed val is greater or equ, insert before current elem
+			Element<T> newElem = new Element<T>(val);
 			newElem.Next = list;
 			return newElem;
 		} else {
-			list.Next = RoutineA(val, list.Next);
+			// otherwise, continue traversing the list
+			list.Next = PushSortedPriv(val, list.Next);
 			return list;
 		}
 	}

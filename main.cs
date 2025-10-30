@@ -13,6 +13,7 @@ class Program {
 
 		test.PushFront();
 		test.PushBack();
+		test.PushSorted();
 		test.PopFront();
 		test.Count();
 		test.RemoveFirst();
