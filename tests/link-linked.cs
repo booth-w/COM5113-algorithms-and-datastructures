@@ -3,140 +3,178 @@ using System.Diagnostics;
 
 static partial class Test {
 	static void PushFront() {
-		LinkedList<int> list = new LinkedList<int>();
-		string output;
+		GenerateTest("push front to empty", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			return list.PrintList();
+		}, "1");
 
-		Debug.WriteLine("push front to empty");
-		list.PushFront(1);
-		output = list.PrintList();
-		Debug.Assert(output == "1", $"push front to empty. found: {output}, expected: 1");
-
-		Debug.WriteLine("push front to non-empty");
-		list.PushFront(2);
-		output = list.PrintList();
-		Debug.Assert(output == "2, 1", $"push front to non-empty. found: {output}, expected: 2, 1");
+		GenerateTest("push front to non-empty", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			list.PushFront(2);
+			return list.PrintList();
+		}, "2, 1");
 	}
 
 	static void PushBack() {
-		LinkedList<int> list = new LinkedList<int>();
-		string output;
+		GenerateTest("push back to empty", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushBack(1);
+			return list.PrintList();
+		}, "1");
 
-		Debug.WriteLine("push back to empty");
-		list.PushBack(1);
-		output = list.PrintList();
-		Debug.Assert(output == "1", $"push back to empty. found: {output}, expected: 1");
-
-		Debug.WriteLine("push back to non-empty");
-		list.PushBack(2);
-		output = list.PrintList();
-		Debug.Assert(output == "1, 2", $"push back to non-empty. found: {output}, expected: 1, 2");
+		GenerateTest("push back to non-empty", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushBack(1);
+			list.PushBack(2);
+			return list.PrintList();
+		}, "1, 2");
 	}
 
 	static void PushSorted() {
-		LinkedList<int> list = new LinkedList<int>();
-		string output;
+		GenerateTest("push sorted to empty", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushSorted(2);
+			return list.PrintList();
+		}, "2");
 
-		Debug.WriteLine("push sorted to empty");
-		list.PushSorted(2);
-		output = list.PrintList();
-		Debug.Assert(output == "2", $"push sorted to empty. found: {output}, expected: 2");
+		GenerateTest("push sorted to front", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushSorted(2);
+			list.PushSorted(1);
+			return list.PrintList();
+		}, "1, 2");
 
-		Debug.WriteLine("push sorted to front");
-		list.PushSorted(1);
-		output = list.PrintList();
-		Debug.Assert(output == "1, 2", $"push sorted to front. found: {output}, expected: 1, 2");
+		GenerateTest("push sorted to back", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushSorted(1);
+			list.PushSorted(2);
+			list.PushSorted(4);
+			return list.PrintList();
+		}, "1, 2, 4");
 
-		Debug.WriteLine("push sorted to back");
-		list.PushSorted(4);
-		output = list.PrintList();
-		Debug.Assert(output == "1, 2, 4", $"push sorted to back. found: {output}, expected: 1, 2, 4");
-
-		Debug.WriteLine("push sorted to middle");
-		list.PushSorted(3);
-		output = list.PrintList();
-		Debug.Assert(output == "1, 2, 3, 4", $"push sorted to middle. found: {output}, expected: 1, 2, 3, 4");
+		GenerateTest("push sorted to middle", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushSorted(1);
+			list.PushSorted(2);
+			list.PushSorted(4);
+			list.PushSorted(3);
+			return list.PrintList();
+		}, "1, 2, 3, 4");
 	}
 
 	static void PopFront() {
-		LinkedList<int> list = new LinkedList<int>();
-		string output;
+		GenerateTest("pop front from empty", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PopFront();
+			return list.PrintList();
+		}, "");
 
-		Debug.WriteLine("pop front from empty");
-		list.PopFront();
-		output = list.PrintList();
-		Debug.Assert(output == "", $"pop front empty. found: {output}, expected: empty string");
+		GenerateTest("pop front from non-empty", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			list.PushFront(2);
+			list.PopFront();
+			return list.PrintList();
+		}, "1");
 
-		Debug.WriteLine("pop front from non-empty");
-		list.PushFront(1);
-		list.PushFront(2);
-		list.PushFront(3);
-		list.PopFront();
-		output = list.PrintList();
-		Debug.Assert(output == "2, 1", $"pop front. found: {output}, expected: 2, 1");
-
-		Debug.WriteLine("pop front last element");
-		list.PopFront();
-		list.PopFront();
-		output = list.PrintList();
-		Debug.Assert(output == "", $"pop front last. found: {output}, expected: empty string");
+		GenerateTest("pop front last element", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			list.PopFront();
+			return list.PrintList();
+		}, "");
 	}
 
-	static void Count() {
-		LinkedList<int> list = new LinkedList<int>();
-		int output;
-
-		Debug.WriteLine("count empty");
-		output = list.Count();
-		Debug.Assert(output == 0, $"count 0. found: {output}, expected: 0");
-
-		Debug.WriteLine("count 1");
-		list.PushFront(1);
-		output = list.Count();
-		Debug.Assert(output == 1, $"count 1. found: {output}, expected: 1");
-
-		Debug.WriteLine("count 3");
-		list.PushFront(2);
-		list.PushFront(3);
-		output = list.Count();
-		Debug.Assert(output == 3, $"count 3. found: {output}, expected: 3");
 	}
 
 	static void RemoveFirst() {
-		LinkedList<int> list = new LinkedList<int>();
-		string output;
+		GenerateTest("remove first from empty", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.RemoveFirst(1);
+			return list.PrintList();
+		}, "");
 
-		Debug.WriteLine("remove first empty");
-		list.RemoveFirst(1);
-		output = list.PrintList();
-		Debug.Assert(output == "", $"remove empty. found: {output}, expected: empty string");
+		GenerateTest("remove first does not exist", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			list.PushFront(2);
+			list.PushFront(3);
+			list.RemoveFirst(4);
+			return list.PrintList();
+		}, "3, 2, 1");
 
-		Debug.WriteLine("remove first does not exist");
-		list.PushFront(1);
-		list.PushFront(2);
-		list.PushFront(3);
-		list.PushFront(4);
-		list.RemoveFirst(5);
-		output = list.PrintList();
-		Debug.Assert(output == "4, 3, 2, 1", $"remove first does not exist. found: {output}, expected: 4, 3, 2, 1");
+		GenerateTest("remove first only element", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			list.RemoveFirst(1);
+			return list.PrintList();
+		}, "");
 
-		Debug.WriteLine("remove first middle");
-		list.RemoveFirst(2);
-		output = list.PrintList();
-		Debug.Assert(output == "4, 3, 1", $"remove first middle. found: {output}, expected: 4, 3, 1");
+		GenerateTest("remove first middle", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			list.PushFront(2);
+			list.PushFront(3);
+			list.RemoveFirst(2);
+			return list.PrintList();
+		}, "3, 1");
 
-		Debug.WriteLine("remove first head");
-		list.RemoveFirst(4);
-		output = list.PrintList();
-		Debug.Assert(output == "3, 1", $"remove first head. found: {output}, expected: 3, 1");
+		GenerateTest("remove first head", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			list.PushFront(2);
+			list.PushFront(3);
+			list.RemoveFirst(3);
+			return list.PrintList();
+		}, "2, 1");
 
-		Debug.WriteLine("remove first tail");
-		list.RemoveFirst(1);
-		output = list.PrintList();
-		Debug.Assert(output == "3", $"remove first tail. found: {output}, expected: 3");
+		GenerateTest("remove first tail", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			list.PushFront(2);
+			list.PushFront(3);
+			list.RemoveFirst(1);
+			return list.PrintList();
+		}, "3, 2");
 
-		Debug.WriteLine("remove first last");
-		list.RemoveFirst(3);
-		output = list.PrintList();
-		Debug.Assert(output == "", $"remove first last. found: {output}, expected: empty string");
+		GenerateTest("remove first multiple", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(2);
+			list.PushFront(1);
+			list.PushFront(2);
+			list.PushFront(3);
+			list.RemoveFirst(2);
+			return list.PrintList();
+		}, "3, 1, 2");
+
+		GenerateTest("remove first last", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			list.RemoveFirst(1);
+			return list.PrintList();
+		}, "");
+	}
+
+	static void Count() {
+		GenerateTest("count 0", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			return list.Count();
+		}, 0);
+
+		GenerateTest("count 1", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			return list.Count();
+		}, 1);
+
+		GenerateTest("count 3", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushFront(1);
+			list.PushFront(2);
+			list.PushFront(3);
+			return list.Count();
+		}, 3);
 	}
 }

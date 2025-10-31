@@ -11,7 +11,13 @@ static partial class Test {
 		PushBack();
 		PushSorted();
 		PopFront();
-		Count();
 		RemoveFirst();
+		Count();
+	}
+
+	static private void GenerateTest<T>(string name, Func<T> testMethod, T expected) {
+		Debug.WriteLine(name);
+		T output = testMethod();
+		Debug.Assert(output.Equals(expected), $"{name}. found: {output}, expected: {expected}");
 	}
 }
