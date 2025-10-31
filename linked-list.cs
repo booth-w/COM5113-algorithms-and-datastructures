@@ -7,6 +7,23 @@ public class LinkedList<T> where T : IComparable<T> {
 		_head = null;
 	}
 
+	public string PrintList() {
+		Element<T>? current = _head;
+
+		string toPrint = "";
+		while (current != null) {
+			toPrint += current.Data + ", ";
+			current = current.Next;
+		}
+
+		// remove last ", "
+		if (toPrint.Length >= 2) {
+			toPrint = toPrint[..^2];
+		}
+
+		return toPrint;
+	}
+
 	public void Clear() {
 		_head = null;
 	}
@@ -21,67 +38,6 @@ public class LinkedList<T> where T : IComparable<T> {
 		}
 
 		return count;
-	}
-
-	public void PushFront(T data, bool toBack = false) {
-		Element<T> newElement = new Element<T>(data);
-
-		if (!toBack) {
-			newElement.Next = _head;
-			_head = newElement;
-		} else {
-			if (_head == null) {
-				_head = newElement;
-			} else {
-				Element<T>? current = _head;
-				while (current.Next != null) {
-					current = current.Next;
-				}
-				current.Next = newElement;
-			}
-		}
-	}
-
-	public void PushBack(T data) {
-		PushFront(data, true);
-	}
-
-	public void PopFront() {
-		Element<T>? oldHead = _head;
-		if (oldHead != null) {
-			_head = oldHead.Next;
-		}
-	}
-
-	public bool GetFront(ref T data) {
-		bool listNotEmpty = _head != null;
-		if (listNotEmpty) {
-			data = _head.Data;
-		} else {
-			Console.WriteLine("Cannot get front of an empty list");
-		}
-
-		return listNotEmpty;
-	}
-
-	public void RemoveFirst(T data) {
-		if (_head == null) {
-			return;
-		}
-
-		if (_head.Data.Equals(data)) {
-			_head = _head.Next;
-			return;
-		}
-
-		Element<T>? current = _head;
-		while (current.Next != null) {
-			if (current.Next.Data.Equals(data)) {
-				current.Next = current.Next.Next;
-				return;
-			}
-			current = current.Next;
-		}
 	}
 
 	public bool Contains(T data) {
@@ -109,29 +65,46 @@ public class LinkedList<T> where T : IComparable<T> {
 		}
 	}
 
-	public string PrintList() {
-		Element<T>? current = _head;
-
-		string toPrint = "";
-		while (current != null) {
-			toPrint += current.Data + ", ";
-			current = current.Next;
+	public bool GetFront(ref T data) {
+		bool listNotEmpty = _head != null;
+		if (listNotEmpty) {
+			data = _head.Data;
+		} else {
+			Console.WriteLine("Cannot get front of an empty list");
 		}
 
-		// remove last ", "
-		if (toPrint.Length >= 2) {
-			toPrint = toPrint[..^2];
-		}
+		return listNotEmpty;
+	}
 
-		return toPrint;
+	public void PushFront(T data, bool toBack = false) {
+		Element<T> newElement = new Element<T>(data);
+
+		if (!toBack) {
+			newElement.Next = _head;
+			_head = newElement;
+		} else {
+			if (_head == null) {
+				_head = newElement;
+			} else {
+				Element<T>? current = _head;
+				while (current.Next != null) {
+					current = current.Next;
+				}
+				current.Next = newElement;
+			}
+		}
+	}
+
+	public void PushBack(T data) {
+		PushFront(data, true);
 	}
 
 	public void PushSorted(T val) {
 		_head = PushSortedPriv(val, _head);
 	}
 
-	// insert to sorted list
 	private Element<T> PushSortedPriv(T val, Element<T> list) {
+		// insert to sorted list
 		if (list == null) {
 			// if the list is empty, create a new element
 			return new Element<T>(val);
@@ -147,24 +120,66 @@ public class LinkedList<T> where T : IComparable<T> {
 		}
 	}
 
-	private Element RoutineB(int val, Element list) {
+	public void PopFront() {
+		Element<T>? oldHead = _head;
+		if (oldHead != null) {
+			_head = oldHead.Next;
+		}
+	}
+
+	public void PopFirst(T data) {
+		if (_head == null) {
+			return;
+		}
+
+		if (_head.Data.Equals(data)) {
+			_head = _head.Next;
+			return;
+		}
+
+		Element<T>? current = _head;
+		while (current.Next != null) {
+			if (current.Next.Data.Equals(data)) {
+				current.Next = current.Next.Next;
+				return;
+			}
+			current = current.Next;
+		}
+	}
+
+	public void PopFirstRecursive(T val) {
+		_head = PopFirstRecursivePriv(val, _head);
+	}
+
+	private Element<T> PopFirstRecursivePriv(T val, Element<T> list) {
+		// remove all occurrences of val from list
 		if (list == null) {
+			// if list is empty, return null
 			return null;
-		} else if (list.Data == val) {
+		} else if (list.Data.Equals(val)) {
+			// if current elem is val, skip it
 			return list.Next;
 		} else {
-			List.Next = RoutineB(val, list.Next);
+			// otherwise, continue traversing the list
+			list.Next = PopFirstRecursivePriv(val, list.Next);
 			return list;
 		}
 	}
 
-	private Element RoutineC(int val, Element list) {
+	public void PopAllOf(T val) {
+		_head = PopAllOfPriv(val, _head);
+	}
+
+	private Element<T> PopAllOfPriv(T val, Element<T> list) {
 		if (list == null) {
+			// if list is empty, return null
 			return null;
-		} else if (list.Data == val) {
-			return RoutineC(val, list.Next);
+		} else if (list.Data.Equals(val)) {
+			// if current elem is val, remove it
+			return PopAllOfPriv(val, list.Next);
 		} else {
-			List.Next = RoutineC(val, list.Next);
+			// otherwise, continue traversing the list
+			list.Next = PopAllOfPriv(val, list.Next);
 			return list;
 		}
 	}

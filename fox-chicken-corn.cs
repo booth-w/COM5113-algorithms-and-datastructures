@@ -52,13 +52,13 @@ public class FCC {
 	private void MoveItem(Item? item) {
 		if (_farmerPos == Bank.North) {
 			if (item.HasValue && _northItems.Contains(item.Value)) {
-				_northItems.RemoveFirst(item.Value);
+				_northItems.PopFirst(item.Value);
 				_southItems.PushFront(item.Value);
 			}
 			_farmerPos = Bank.South;
 		} else {
 			if (item.HasValue && _southItems.Contains(item.Value)) {
-				_southItems.RemoveFirst(item.Value);
+				_southItems.PopFirst(item.Value);
 				_northItems.PushFront(item.Value);
 			}
 			_farmerPos = Bank.North;

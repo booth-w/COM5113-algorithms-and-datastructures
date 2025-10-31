@@ -11,8 +11,11 @@ static partial class Test {
 		PushBack();
 		PushSorted();
 		PopFront();
-		RemoveFirst();
+		PopFirst();
+		PopFirstRecursive();
+		PopAllOf();
 		Count();
+		Contains();
 	}
 
 	static private void GenerateTest<T>(string name, Func<T> testMethod, T expected) {
