@@ -18,6 +18,7 @@ static partial class Test {
 		Contains();
 		Enqueue();
 		Dequeue();
+		QueueClear();
 	}
 
 	static private void GenerateTest<T>(string name, Func<T> testMethod, T expected) {

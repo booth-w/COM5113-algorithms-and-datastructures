@@ -40,4 +40,20 @@ static partial class Test {
 			return queue.PrintQueue();
 		}, "2, 3");
 	}
+
+	static void QueueClear() {
+		GenerateTest("clear empty queue", () => {
+			LinkedQueue<int> queue = new LinkedQueue<int>();
+			queue.Clear();
+			return queue.PrintQueue();
+		}, "");
+
+		GenerateTest("clear non-empty queue", () => {
+			LinkedQueue<int> queue = new LinkedQueue<int>();
+			queue.Enqueue(1);
+			queue.Enqueue(2);
+			queue.Clear();
+			return queue.PrintQueue();
+		}, "");
+	}
 }
