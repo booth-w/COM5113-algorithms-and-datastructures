@@ -5,7 +5,7 @@ shopt -s globstar
 
 if [[ $1 == "--debug" ]]; then
 	shift
-	csc -define:DEBUG -nowarn:8632 **/*.cs
+	csc -debug+ -optimize- -define:DEBUG -nowarn:8632 **/*.cs
 else
 	csc -nowarn:8632 **/*.cs
 fi
