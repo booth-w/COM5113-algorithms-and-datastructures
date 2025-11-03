@@ -16,6 +16,7 @@ static partial class Test {
 		PopAllOf();
 		Count();
 		Contains();
+		Enqueue();
 	}
 
 	static private void GenerateTest<T>(string name, Func<T> testMethod, T expected) {
