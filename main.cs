@@ -6,5 +6,7 @@ class Program {
 			Test.Init();
 			Test.Run();
 		#endif
+
+		GridGame.Run();
 	}
 }

@@ -3,6 +3,7 @@ using System.Linq;
 
 public static class GridGame {
 	static bool gameOver;
+	static bool isEditing;
 
 	struct Grid {
 		public char[,] grid;
@@ -17,7 +18,7 @@ public static class GridGame {
 		public char playerChar;
 	}
 
-	public static void Run(string[] args) {
+	public static void Run() {
 		(Grid grid, Player player) = Init();
 
 		while (!gameOver) {
@@ -41,7 +42,7 @@ public static class GridGame {
 		player.playerChar = 'P';
 
 		gameOver = false;
-
+		isEditing = false;
 
 		// fill grid with gridChar
 		for (int row = 0; row < grid.rows; row++) {
@@ -49,28 +50,45 @@ public static class GridGame {
 				grid.grid[row, col] = grid.gridChar;
 			}
 		}
-		grid.grid[player.x, player.y] = player.playerChar;
 
 		return (grid, player);
 	}
 
 	static (Grid, Player) GameLoop(Grid grid, Player player) {
 		Console.Clear();
-		PrintRoom(grid);
-		(grid, player) = MovePlayer(grid, player);
+		PrintRoom(grid, player);
+
+		(grid, player) = GetInput(grid, player);
 		return (grid, player);
 	}
 
-	static void PrintRoom(Grid grid) {
+	static void PrintRoom(Grid grid, Player player) {
 		int rows = grid.grid.GetLength(0);
 		int cols = grid.grid.GetLength(1);
 
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
+				if (player.x == col && player.y == row && !isEditing) {
+					Console.Write(player.playerChar);
+					continue;
+				}
 				Console.Write(grid.grid[row, col]);
 			}
 			Console.WriteLine();
 		}
+	}
+
+	static (Grid, Player) EditGrid(Grid grid, Player player) {
+		bool isValid;
+		do {
+			Console.Clear();
+			PrintRoom(grid, player);
+			Console.WriteLine("[command] [x] [y]\n0, 0, bottom left\no: Toggle obsticle\ns: Starting position\ne: Exit position");
+			string input = Console.ReadLine();
+			isValid = true;
+		} while (!isValid);
+
+		return (grid, player);
 	}
 
 	static char GetUserKey(string prompt, char[] validKeys) {
@@ -91,14 +109,30 @@ public static class GridGame {
 		}
 	}
 
-	static (Grid, Player) MovePlayer(Grid grid, Player player) {
-		char input = GetUserKey("Move: wasd\nQuit: q\n", new char[] {'w', 'a', 's', 'd', 'q'});
+	static (Grid, Player) GetInput(Grid grid, Player player) {
+		char input;
+		if (!isEditing)  {
+			input = GetUserKey("Move cursor: wasd\nEdit the grid: e\nQuit: q\n", new char[] {'w', 'a', 's', 'd', 'e', 'q'});
+		} else {
+			input = GetUserKey("Move player: wasd\nEnter Command: /\nQuit editing: q\n", new char[] {'w', 'a', 's', 'd', '/', 'q'});
+		}
 		int newX = player.x;
 		int newY = player.y;
 
 		switch (input) {
 			case 'q':
-				gameOver = true;
+				if (!isEditing) {
+					gameOver = true;
+					break;
+				} else {
+					isEditing = false;
+					break;
+				}
+			case 'e':
+				isEditing = !isEditing;
+				break;
+			case '/':
+				EditGrid(grid, player);
 				break;
 			case 'w':
 				newY--;
