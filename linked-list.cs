@@ -120,11 +120,32 @@ public class LinkedList<T> where T : IComparable<T> {
 		}
 	}
 
-	public void PopFront() {
+	public void PopFront(bool toBack = false) {
 		Element<T>? oldHead = _head;
-		if (oldHead != null) {
-			_head = oldHead.Next;
+
+		if (!toBack) {
+			if (oldHead != null) {
+				_head = oldHead.Next;
+			}
+		} else {
+			if (oldHead == null) {
+				return;
+			}
+
+			if (oldHead.Next == null) {
+				_head = null;
+			} else {
+				Element<T>? current = oldHead;
+				while (current.Next.Next != null) {
+					current = current.Next;
+				}
+				current.Next = null;
+			}
 		}
+	}
+
+	public void PopBack() {
+		PopFront(true);
 	}
 
 	public void PopFirst(T data) {

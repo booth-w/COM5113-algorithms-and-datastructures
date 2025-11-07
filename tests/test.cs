@@ -11,6 +11,7 @@ static partial class Test {
 		PushBack();
 		PushSorted();
 		PopFront();
+		PopBack();
 		PopFirst();
 		PopFirstRecursive();
 		PopAllOf();

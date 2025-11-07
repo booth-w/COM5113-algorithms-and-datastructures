@@ -87,6 +87,29 @@ static partial class Test {
 		}, "");
 	}
 
+	static void PopBack() {
+		GenerateTest("pop back from empty", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PopBack();
+			return list.PrintList();
+		}, "");
+
+		GenerateTest("pop back from non-empty", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushBack(1);
+			list.PushBack(2);
+			list.PopBack();
+			return list.PrintList();
+			}, "1");
+
+		GenerateTest("pop back last element", () => {
+			LinkedList<int> list = new LinkedList<int>();
+			list.PushBack(1);
+			list.PopBack();
+			return list.PrintList();
+		}, "");
+	}
+
 	static void PopFirst() {
 		GenerateTest("pop first from empty", () => {
 			LinkedList<int> list = new LinkedList<int>();
