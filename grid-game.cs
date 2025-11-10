@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 public static class GridGame {
 	static bool gameOver;
@@ -123,11 +124,10 @@ public static class GridGame {
 			case 'q':
 				if (!isEditing) {
 					gameOver = true;
-					break;
 				} else {
 					isEditing = false;
-					break;
 				}
+				break;
 			case 'e':
 				isEditing = !isEditing;
 				break;
@@ -157,5 +157,14 @@ public static class GridGame {
 		}
 
 		return (grid, player);
+	}
+
+	/// <summary>
+	/// Validates a grid edit command against <c>^[OoSsEe]\s\d+\s\d+$</c>
+	/// such that the first char is either O, S, or E, then two integers
+	/// </summary>
+	public static bool IsValidEditCommand(string command) {
+		string regex = "^[OoSsEe]\\s\\d+\\s\\d+$";
+		return Regex.IsMatch(command, regex);
 	}
 }

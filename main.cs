@@ -5,8 +5,8 @@ class Program {
 		#if DEBUG
 			Test.Init();
 			Test.Run();
+		#else
+			GridGame.Run();
 		#endif
-
-		GridGame.Run();
 	}
 }
