@@ -70,10 +70,10 @@ public static class GridGame {
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
 				if (player.x == col && player.y == row && !isEditing) {
-					Console.Write(player.playerChar);
+					Console.Write(player.playerChar + " ");
 					continue;
 				}
-				Console.Write(grid.grid[row, col]);
+				Console.Write(grid.grid[row, col] + " ");
 			}
 			Console.WriteLine();
 		}
