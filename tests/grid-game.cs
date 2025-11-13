@@ -22,5 +22,9 @@ partial class Test {
 		GenerateTest("command invalid number", () => {
 			return GridGame.IsValidEditCommand("O 12");
 		}, false);
+
+		GenerateTest("command empty", () => {
+			return GridGame.IsValidEditCommand("");
+		}, true);
 	}
 }

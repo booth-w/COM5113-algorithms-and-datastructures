@@ -84,9 +84,9 @@ public static class GridGame {
 		do {
 			Console.Clear();
 			PrintRoom(grid, player);
-			Console.WriteLine("[command] [x] [y]\n0, 0, bottom left\no: Toggle obsticle\ns: Starting position\ne: Exit position");
+			Console.WriteLine("[command] [x] [y]\n0, 0, bottom left\no: Toggle obsticle\ns: Starting position\ne: Exit position\nLeave blank to cancel");
 			string input = Console.ReadLine();
-			isValid = true;
+			isValid = IsValidEditCommand(input);
 		} while (!isValid);
 
 		return (grid, player);
@@ -160,11 +160,11 @@ public static class GridGame {
 	}
 
 	/// <summary>
-	/// Validates a grid edit command against <c>^[OoSsEe]\s\d+\s\d+$</c>
-	/// such that the first char is either O, S, or E, then two integers
+	/// Validates a grid edit command against <c>^([OoSsEe]\s\d+\s\d+)?$</c>
+	/// such that the first char is either O, S, or E, then two integers, or the entire string is empty
 	/// </summary>
 	public static bool IsValidEditCommand(string command) {
-		string regex = "^[OoSsEe]\\s\\d+\\s\\d+$";
+		string regex = "^([OoSsEe]\\s\\d+\\s\\d+)?$";
 		return Regex.IsMatch(command, regex);
 	}
 }
